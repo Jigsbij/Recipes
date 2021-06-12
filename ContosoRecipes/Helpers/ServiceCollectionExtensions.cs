@@ -18,7 +18,7 @@ namespace ContosoRecipes.Helpers
             ConventionPack pack = new ConventionPack();
             pack.Add(new CamelCaseElementNameConvention());
 
-            ConventionRegistry.Register("Custom Convertions", pack, t => true);
+            ConventionRegistry.Register("Custom Conventions", pack, t => true);
             BsonClassMap.RegisterClassMap<Recipe>(cm =>
                 {
                     cm.AutoMap();
