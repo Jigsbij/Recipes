@@ -25,8 +25,8 @@ namespace ContosoRecipes.Controllers
                 return BadRequest();
             return NoContent();
         }
-        [HttpDelete]
-        public ActionResult DeleteRecipes()
+        [HttpDelete("{id}")]
+        public ActionResult DeleteRecipes(int id)
         {
             bool badThingHappened = false;
             if (badThingHappened)
