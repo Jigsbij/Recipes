@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ContosoRecipes.Models;
 using Microsoft.Extensions.Options;
+using MongoDB.Driver;
 
 namespace ContosoRecipes.Helpers
 {
@@ -12,7 +13,7 @@ namespace ContosoRecipes.Helpers
         public static IServiceCollection AddMongoDb(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<MongoDatabaseOptions>(configuration.GetSection("MongoDatabase"));
-            services.AddSingleton<IMongoDatabaseOptions>(provider => provider.GetRequiredService<IOptions<MongoDatabaseOptions>>().Value);
+            services.AddSingleton<IMongoClient>(provider => new MongoClient(configuration["MongoDatabase"]));
 
             ConventionPack pack = new ConventionPack();
             pack.Add(new CamelCaseElementNameConvention());

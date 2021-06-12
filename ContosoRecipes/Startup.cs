@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using ContosoRecipes.Helpers;
 using System.Linq;
 using System.Threading.Tasks;
+using ContosoRecipes.Data;
 
 namespace ContosoRecipes
 {
@@ -28,7 +29,8 @@ namespace ContosoRecipes
         public void ConfigureServices(IServiceCollection services)
         {
 
-            ServiceCollectionExtensions.AddMongoDb(services, Configuration);
+            services.AddMongoDb(Configuration);
+            services.AddTransient<IRecipeDataStore, MongoRecipeDataStore>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
