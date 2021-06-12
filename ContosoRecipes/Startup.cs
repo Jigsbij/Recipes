@@ -43,7 +43,6 @@ namespace ContosoRecipes
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ContosoRecipes v1"));
             }
-
             app.UseHttpsRedirection();
 
             app.UseRouting();

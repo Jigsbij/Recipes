@@ -8,10 +8,10 @@ namespace ContosoRecipes.Controllers
     public class RecipesController : ControllerBase
     {
         [HttpGet]
-        public ActionResult GetRecipes()
+        public ActionResult GetRecipes([FromQuery] int count)
         {
             string[] dishes = { "Oxtail", "Curry Chicken", "Dumplings" };
-            if (dishes.Any())
+            if (! dishes.Any())
             {
                 return NotFound();
             }
