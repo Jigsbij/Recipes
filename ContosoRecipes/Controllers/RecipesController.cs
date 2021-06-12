@@ -20,12 +20,26 @@ namespace ContosoRecipes.Controllers
         [HttpPost]
         public ActionResult CreateNewRecipes()
         {
-
+            bool validRecipes = false;
+            if (!validRecipes)
+                return BadRequest();
+            return NoContent();
         }
         [HttpDelete]
         public ActionResult DeleteRecipes()
         {
-
+            bool badThingHappened = false;
+            if (badThingHappened)
+                return BadRequest();
+            return NoContent();
+        }
+        [HttpPatch]
+        public ActionResult UpdateRecipes()
+        {
+            bool recipeExist = false;
+            if (!recipeExist)
+                return BadRequest();
+            return NoContent();
         }
     }
 }
