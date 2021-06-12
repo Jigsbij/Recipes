@@ -1,9 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ContosoRecipes.Controllers
 {
@@ -12,10 +8,24 @@ namespace ContosoRecipes.Controllers
     public class RecipesController : ControllerBase
     {
         [HttpGet]
-        public string[] GetDishes()
+        public ActionResult GetRecipes()
         {
             string[] dishes = { "Oxtail", "Curry Chicken", "Dumplings" };
-            return dishes;
+            if (dishes.Any())
+            {
+                return NotFound();
+            }
+            return Ok(dishes);
+        }
+        [HttpPost]
+        public ActionResult CreateNewRecipes()
+        {
+
+        }
+        [HttpDelete]
+        public ActionResult DeleteRecipes()
+        {
+
         }
     }
 }
