@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ContosoRecipes.Models;
+using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 
 namespace ContosoRecipes.Controllers
@@ -10,20 +11,21 @@ namespace ContosoRecipes.Controllers
         [HttpGet]
         public ActionResult GetRecipes([FromQuery] int count)
         {
-            string[] dishes = { "Oxtail", "Curry Chicken", "Dumplings" };
-            if (! dishes.Any())
-            {
-                return NotFound();
-            }
-            return Ok(dishes);
+            Recipe[] dishes = {
+                new() { Title = "Oxtail" },
+                new() { Title = "Curry Chicken" },
+                new() { Title = "Dumplings" }
+            };
+            
+            return Ok(dishes.Take(count));
         }
         [HttpPost]
-        public ActionResult CreateNewRecipes()
+        public ActionResult CreateNewRecipes([FromBody] Recipe recipe)
         {
             bool validRecipes = false;
-            if (!validRecipes)
+            if (validRecipes)
                 return BadRequest();
-            return NoContent();
+            return Created("",recipe);
         }
         [HttpDelete("{id}")]
         public ActionResult DeleteRecipes(int id)
