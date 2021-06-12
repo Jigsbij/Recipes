@@ -1,6 +1,9 @@
-﻿using ContosoRecipes.Models;
+﻿using ContosoRecipes.Data;
+using ContosoRecipes.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ContosoRecipes.Controllers
 {
@@ -8,16 +11,19 @@ namespace ContosoRecipes.Controllers
     [ApiController]
     public class RecipesController : ControllerBase
     {
-        [HttpGet]
-        public ActionResult GetRecipes([FromQuery] int count)
+        private readonly IRecipeDataStore _recipeData;
+        public RecipesController(IRecipeDataStore recipeData)
         {
-            Recipe[] dishes = {
-                new() { Title = "Oxtail" },
-                new() { Title = "Curry Chicken" },
-                new() { Title = "Dumplings" }
-            };
-            
-            return Ok(dishes.Take(count));
+            _recipeData = recipeData;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> GetRecipes([FromQuery] int count)
+        {
+            IEnumerable<Recipe> dishes = await _recipeData.GetRandomRecipes<Recipe>(count);    
+            if (!dishes.Any())
+                return NotFound();
+            return Ok(dishes);
         }
         [HttpPost]
         public ActionResult CreateNewRecipes([FromBody] Recipe recipe)
