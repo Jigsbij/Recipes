@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using ContosoRecipes.Helpers;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -27,11 +28,14 @@ namespace ContosoRecipes
         public void ConfigureServices(IServiceCollection services)
         {
 
+            ServiceCollectionExtensions.AddMongoDb(services, Configuration);
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ContosoRecipes", Version = "v1" });
             });
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
